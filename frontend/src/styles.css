@@ -1,0 +1,260 @@
+:root {
+  color-scheme: dark;
+  --ink: #f1f5f9;
+  --muted: #94a3b8;
+  --line: rgba(255, 255, 255, 0.12);
+  --accent: #a5b4fc;
+  --accent-ink: #111827;
+  --danger: #f87171;
+  --glass-blur: 16px;
+  --glass-background: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #0f172a;
+  background-image: radial-gradient(circle at 8% 0%, rgba(102, 126, 234, 0.22), transparent 30%),
+    radial-gradient(circle at 92% 10%, rgba(118, 75, 162, 0.2), transparent 28%);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  color: var(--accent-ink);
+  background: var(--accent);
+  padding: 10px 16px;
+  transition: opacity 160ms ease;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.link-button {
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  padding: 4px 0;
+}
+
+.link-button.danger {
+  color: var(--danger);
+}
+
+input,
+select {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink);
+  padding: 8px 10px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.glass-card {
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  background: var(--glass-background);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: var(--glass-shadow);
+  padding: 20px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.eyebrow {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  margin: 0 0 6px;
+}
+
+.form-error {
+  color: var(--danger);
+}
+
+/* Auth page */
+.auth-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.auth-card {
+  width: min(400px, 100%);
+}
+
+/* App shell */
+.app-shell {
+  width: min(960px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0 48px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.routine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.routine-card {
+  cursor: pointer;
+  transition: border-color 160ms ease;
+}
+
+.routine-card:hover {
+  border-color: var(--accent);
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--muted);
+}
+
+/* Routine builder */
+.routine-builder-form {
+  display: grid;
+  gap: 16px;
+}
+
+.day-builder {
+  display: grid;
+  gap: 10px;
+}
+
+.day-builder-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.day-name-input {
+  font-weight: 600;
+  flex: 1;
+}
+
+.exercise-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1.4fr 70px 60px auto 60px auto;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Routine detail */
+.day-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.day-tabs button {
+  background: transparent;
+  color: var(--muted);
+  border-color: var(--line);
+}
+
+.day-tabs button.active {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+
+.log-form,
+.progress-section,
+.session-log {
+  margin-bottom: 20px;
+}
+
+.chart-wrap {
+  margin-top: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+thead th {
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .app-shell {
+    width: calc(100% - 24px);
+    padding-top: 16px;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .exercise-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}

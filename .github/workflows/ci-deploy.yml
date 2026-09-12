@@ -2,9 +2,9 @@ name: CI & Deploy
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   backend-test:
@@ -41,7 +41,7 @@ jobs:
 
   deploy-api:
     needs: [backend-test, frontend-build]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     runs-on: ubuntu-latest
     concurrency: deploy-gym-tracker-api
     steps:
@@ -54,7 +54,7 @@ jobs:
 
   deploy-web:
     needs: [backend-test, frontend-build]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     runs-on: ubuntu-latest
     concurrency: deploy-gym-tracker-web
     steps:

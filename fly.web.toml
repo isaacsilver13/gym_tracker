@@ -1,4 +1,4 @@
-app = "gym-tracker-web"
+app = "isilver-gym-tracker-web"
 primary_region = "ewr"
 
 [build]

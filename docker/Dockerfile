@@ -1,3 +1,13 @@
+FROM node:22-slim AS frontend-build
+
+WORKDIR /app
+
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+
+COPY frontend ./
+RUN npm run build
+
 FROM python:3.12-slim
 
 WORKDIR /app
@@ -12,6 +22,8 @@ RUN apt-get update \
 COPY pyproject.toml alembic.ini ./
 COPY backend ./backend
 RUN pip install --no-cache-dir .
+
+COPY --from=frontend-build /app/dist ./frontend_dist
 
 EXPOSE 8000
 

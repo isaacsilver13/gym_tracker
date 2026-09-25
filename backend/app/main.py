@@ -33,7 +33,7 @@ app.include_router(exercises.router, prefix="/api/v1")
 # longer need separate Fly apps (and browser requests to /api/v1 stay same-origin
 # without an nginx reverse proxy). No-op locally, where this directory doesn't
 # exist and the Vite dev server is used instead.
-FRONTEND_DIST = Path(os.environ.get("FRONTEND_DIST_DIR", "/app/frontend_dist"))
+FRONTEND_DIST = Path(os.environ.get("FRONTEND_DIST_DIR", "/app/frontend_dist")).resolve()
 if FRONTEND_DIST.is_dir():
     app.mount("/assets", StaticFiles(directory=FRONTEND_DIST / "assets"), name="assets")
 
@@ -41,7 +41,8 @@ if FRONTEND_DIST.is_dir():
     async def serve_frontend(full_path: str) -> FileResponse:
         if full_path.startswith("api/"):
             raise HTTPException(status_code=404, detail="Not Found")
-        candidate = FRONTEND_DIST / full_path
-        if full_path and candidate.is_file():
+        candidate = (FRONTEND_DIST / full_path).resolve()
+        is_within_dist = candidate == FRONTEND_DIST or FRONTEND_DIST in candidate.parents
+        if full_path and is_within_dist and candidate.is_file():
             return FileResponse(candidate)
         return FileResponse(FRONTEND_DIST / "index.html")
